@@ -15,10 +15,26 @@
     html, body, #map {
       height: 100%;
     }
+    #words {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      align-items: center;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.8);
+      font-family: fantasy;
+      padding: 0px;
+      margin: 0px;
+      line-height: 100%;
+      padding-left: 1em;
+      padding-right: 1em;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
 <div id="map"></div>
+<div id="words"><h3 id="label">2017</h3></div>
 <script>
 
 	var map = L.map('map').setView([4.6, 16.8], 3);
@@ -62,6 +78,7 @@
           currentYear = 2017;
         }
         geomad.setParams({"time": currentYear + "-01-01"});
+        document.getElementById("label").innerHTML = currentYear;
       }
     } else{
       console.log("Not loaded yet...");
