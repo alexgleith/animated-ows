@@ -32,11 +32,42 @@
 		zoomOffset: -1
 	}).addTo(map);
 
+  var geomadOld = L.tileLayer.wms('http://ows.dev.digitalearth.africa', {
+    layers: 'gm_s2_annual',
+    format: 'image/png',
+    time: "2017-01-01",
+    // opacity: 0.8
+  }).addTo(map);
+
   var geomad = L.tileLayer.wms('http://ows.dev.digitalearth.africa', {
     layers: 'gm_s2_annual',
     format: 'image/png',
-    time: "2017-01-01,2018-01-01,2019-01-01,2020-01-01"
+    time: "2017-01-01",
+    // opacity: 0.8
   }).addTo(map);
+
+  var intervalID = window.setInterval(reloadGM, 500);
+  var currentYear = 2017;
+
+  var increment = 1;
+
+  function reloadGM() {
+    if (!geomad.isLoading()) {
+      increment += 1;
+      if (increment % 2 == 0) {
+        geomadOld.setParams({"time": currentYear + "-01-01"});
+      } else {
+        currentYear += 1;
+        if (currentYear > 2020) {
+          currentYear = 2017;
+        }
+        geomad.setParams({"time": currentYear + "-01-01"});
+      }
+    } else{
+      console.log("Not loaded yet...");
+    }
+  }
+
 
 </script>
 </body>
