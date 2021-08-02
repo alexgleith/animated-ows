@@ -32,11 +32,16 @@
 		zoomOffset: -1
 	}).addTo(map);
 
-  var topographyAndPlaces = L.tileLayer.wms('http://ows.dev.digitalearth.africa', {
+  var geomad = L.tileLayer.wms('http://ows.dev.digitalearth.africa', {
     layers: 'gm_s2_annual',
     format: 'image/png',
     time: "2017-01-01,2018-01-01,2019-01-01,2020-01-01"
   }).addTo(map);
+
+  map.whenReady(function() {
+    map.removeLayer(geomad)
+    map.addLayer(geomad)
+  });
 
 </script>
 </body>
